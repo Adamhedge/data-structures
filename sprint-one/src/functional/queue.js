@@ -3,7 +3,6 @@ var Queue = function(){
 
   // Use an object with numeric keys to store values
   var storage = {'size': 0};
-  var valsAdded = 0;
   var curPoint = 0;
 
   // Implement the methods below
@@ -12,22 +11,20 @@ var Queue = function(){
 
     storage[storage['size']] = value;
     storage.size += 1;
-    valsAdded += 1;
   };
 
   someInstance.dequeue = function(){
-    if( valsAdded === 0 ) return;
+    if( someInstance.size() === 0) return;
 
     var answer = storage[curPoint];
     delete storage[curPoint];
 
     curPoint += 1;
-    valsAdded -= 1;
     return answer;
   };
 
   someInstance.size = function(){
-    return valsAdded;
+    return storage.size - curPoint;
   };
 
   return someInstance;
