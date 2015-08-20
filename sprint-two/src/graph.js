@@ -11,7 +11,7 @@ var Graph = function(){
 // ------------------------
 // Add a node to the graph, passing in the node's value.
 Graph.prototype.addNode = function(node){
-  if(!(node in Object.keys(this.graph))){
+  if(this.graph[node] === undefined){
     this.graph[node] = {};
   }
 };
@@ -69,7 +69,14 @@ Graph.prototype.forEachNode = function(cb){
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ n = nodes, m = edges
+
+ Space: O(n)
+ AddEdge: O(1)
+ Contains: O(1)
+ RemoveNode: O(n)
+ HasEdge: O(1)
+ AddEdge: O(1)
+ RemoveEdge: O(m)
+ ForEachNode: O(n)
  */
-
-
-

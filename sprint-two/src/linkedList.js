@@ -4,14 +4,14 @@ var LinkedList = function(){
   list.tail = null;
 
   list.addToTail = function(value){
-    if( list.head === null ) { 
+    if( list.head === null ) {
       list.head = new Node(value);
       list.tail = list.head;
       return;
     }
 
     var pointer = list.head;
-    
+
     while( pointer.next !== null ) {
       pointer = pointer.next;
     }
@@ -56,4 +56,8 @@ var Node = function(value){
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ Space: O(n)
+ AddToTail: 1st implementation- O(n), second implementation- O(1)
+ RemoveHead: O(1)
+ Contains: O(n)
  */

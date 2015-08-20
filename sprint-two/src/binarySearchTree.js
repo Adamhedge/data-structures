@@ -67,5 +67,4 @@ bstMethods.depthFirstLog = function() {
  Search: O(log n)
  Delete: O(log n)
  Depth First Log: O(n)
- 
  */

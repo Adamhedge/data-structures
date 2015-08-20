@@ -15,8 +15,7 @@ treeMethods.addChild = function(value){
   if(this.children === null){
     this.children = [];
   }
-  this.children.push(new  Tree(value));
-
+  this.children.push(new Tree(value));
 };
 
 treeMethods.contains = function(target){
@@ -38,4 +37,8 @@ treeMethods.contains = function(target){
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ Space: O(n)
+ AddChild: O(1)
+ Contains: O(n)
+ Remove: O(n)
  */

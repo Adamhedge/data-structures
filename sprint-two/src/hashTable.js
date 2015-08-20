@@ -10,7 +10,7 @@ HashTable.prototype.insert = function(k, v){
     var collisions = this._storage.get(i);
 
     collisions.forEach(function(key, index){
-      if(key[0] === k){ 
+      if(key[0] === k){
         collisions.splice(index, 1);
       }
     });
@@ -47,4 +47,8 @@ HashTable.prototype.remove = function(k){
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ Space: O(n)
+ Insert: O(n)
+ Retrieve: O(n)
+ Remove: O(1)
  */
