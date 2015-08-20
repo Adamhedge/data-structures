@@ -39,33 +39,36 @@ DoublyLinkedList.prototype.contains = function(value) {
 
   while( pointer !== null ) {
     if(value === pointer.value){ return true; }
+    pointer = pointer.next;
   }
 
   return false;
 }
 
-// DoublyLinkedList.prototype.removeNthElement = function(nth) {
-//   if(this.cantRemove()){ return; }
-//   else if(this.size < nth){ return; }
+DoublyLinkedList.prototype.removeNthElement = function(nth) {
+  if(this.cantRemove()){ return; }
+  else if(this.size < nth){ return; }
 
-//   var direction = (this.size / 2) < nth ? 'previous' : 'next'; 
-//   var pointer = direction === 'previous' ? this.tail : this.head;
-//   var curNth = direction === 'previous' ? this.size : 0;
+  var direction = (this.size / 2) < nth ? 'previous' : 'next';
+  var pointer = direction === 'previous' ? this.tail : this.head;
+  var curNth = direction === 'previous' ? this.size : 1;
 
-//   while(pointer !== null) {
-//     curNth = direction === 'previous' ? curNth-1 : curNth+1;
-//     if( curNth === nth ) {
-//       pointer.next.previous = pointer.previous;
-//       pointer.previous.next = pointer.next;
-//       return pointer.value;
-//     }
-//     else { pointer = pointer[direction]; }
-//   }
-// }
+  while(pointer !== null) {
+    if( curNth === nth ) {
+      pointer.next.previous = pointer.previous;
+      pointer.previous.next = pointer.next;
+      this.size -= 1;
+      return pointer.value;
+    }
 
-// DoublyLinkedList.prototype.cantRemove = function() {
-//   return this.size === 0 ? true : false;
-// }
+    pointer = pointer[direction];
+    curNth = (direction === 'previous') ? curNth-1 : curNth+1;
+  }
+}
+
+DoublyLinkedList.prototype.cantRemove = function() {
+  return (this.size === 0) ? true : false;
+}
 
 var Node = function(value){
   var node = {};

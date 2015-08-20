@@ -1,3 +1,4 @@
+debugger;
 describe('doublyLinkedList', function() {
   var list;
 
@@ -28,11 +29,13 @@ describe('doublyLinkedList', function() {
     expect(list.contains(5)).to.equal(true);
   });
 
-  // it('should remove the nth element from the list', function() {
-  //   list.addToHead(7);
-  //   list.addToHead(8);
-  //   expect(list.removeNthElement(3)).to.equal(6);
-  //   expect(list.contains(6)).to.equal(false);
-  //   expect(list.contains(5)).to.equal(true);
-  // });
+  it('should remove the nth element from the list', function() {
+    list.addToHead(7);
+    list.addToHead(8);
+    expect(list.removeNthElement(3)).to.equal(6);
+    expect(list.contains(6)).to.equal(false);
+    expect(list.contains(5)).to.equal(true);
+    list.addToHead(9);
+    expect(list.removeNthElement(2)).to.equal(8);
+  });
 });
