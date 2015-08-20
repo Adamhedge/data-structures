@@ -74,9 +74,9 @@ Graph.prototype.forEachNode = function(cb){
  Space: O(n)
  AddEdge: O(1)
  Contains: O(1)
- RemoveNode: O(n)
+ RemoveNode: O(m)
  HasEdge: O(1)
  AddEdge: O(1)
- RemoveEdge: O(m)
+ RemoveEdge: O(1)
  ForEachNode: O(n)
  */
