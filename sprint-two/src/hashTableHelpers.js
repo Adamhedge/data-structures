@@ -13,8 +13,11 @@
 
 var LimitedArray = function(limit){
   var storage = [];
+  var limit  = limit;
+  var keysUsed = 0;
 
   var limitedArray = {};
+
   limitedArray.get = function(index){
     checkLimit(index);
     return storage[index];
@@ -22,16 +25,27 @@ var LimitedArray = function(limit){
   limitedArray.set = function(index, value){
     checkLimit(index);
     storage[index] = value;
+
+    if(value === null) {
+      storage.splice(index,1);
+      keysUsed--;
+    } else {
+      keysUsed++;
+    }
   };
   limitedArray.each = function(callback){
     for(var i = 0; i < storage.length; i++){
-      callback(storage[i], i, storage);
+      callback.call(this, storage[i], i, storage);
     }
   };
 
   var checkLimit = function(index){
     if(typeof index !== 'number'){ throw new Error('setter requires a numeric index for its first argument'); }
     if(limit <= index){ throw new Error('Error trying to access an over-the-limit index'); }
+  };
+
+  limitedArray.getKeysUsed = function() {
+    return keysUsed;
   };
 
   return limitedArray;
