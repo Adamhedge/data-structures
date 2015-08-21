@@ -14,49 +14,69 @@ bstMethods.rebalanceTree = function() {
   var buffer = [];
   var newTree;
 
-
   var inOrderTraversal = function(node) {
-    if(node.left !== null) inOrderTraversal(node.left);
+    if(node.left !== null) { 
+      inOrderTraversal(node.left); 
+    }
+
     buffer.push(node.value);
-    if(node.right !== null) inOrderTraversal(node.right);
+
+    if(node.right !== null) { 
+      inOrderTraversal(node.right); 
+    }
   }
 
   var binaryBalance = function(array) {
-    var middle = parseInt(array.length/2);
-    newTree.
-    if(array.length === 1) return;
+    if(array.length === 0) {
+      return;
+    }
 
-    binaryBalance(array)
+    var middle = parseInt(array.length/2);
+
+    if(newTree === undefined) {
+      newTree = BinarySearchTree( array[middle] );
+    } else {
+      newTree.insert( array[middle] );
+    }
+
+    var leftArray = array.slice(0, middle);
+    var rightArray = array.slice(middle+1);
+
+    binaryBalance(leftArray);
+    binaryBalance(rightArray);
   }
 
   inOrderTraversal(this);
-  binaryBalance();
+  binaryBalance(buffer);
 
-  return newTree;
+  this.value = newTree.value;
+  this.left = newTree.left;
+  this.right = newTree.right;
 }
 
 bstMethods.insert = function( value ) {
-  var pointer = this;
-
-  if(value < pointer.value) {
-    if(pointer.left === null) {
-      pointer.left = BinarySearchTree(value, null, null);
-      return;
-    } else {
-      pointer.left.insert(value);
-    }
-  } else { 
-    if(pointer.right === null) {
-      pointer.right = BinarySearchTree(value, null, null);
-      return;
-    } else {
-      pointer.right.insert(value);
+  if(value === undefined) return;
+  
+  var insertRecursively = function(pointer) {
+    if(value < pointer.value) {
+      if(pointer.left === null) {
+        pointer.left = BinarySearchTree(value, null, null);
+        return;
+      } else {
+        insertRecursively(pointer.left);
+      }
+    } else { 
+      if(pointer.right === null) {
+        pointer.right = BinarySearchTree(value, null, null);
+        return;
+      } else {
+        insertRecursively(pointer.right);
+      }
     }
   }
 
   var minDepth = Infinity;
   var maxDepth = -1;
-
 
   var findDepths = function(root, curDepth) {
     if(root.left === null && root.right === null){
@@ -72,10 +92,11 @@ bstMethods.insert = function( value ) {
     }
   }
 
+  insertRecursively(this);
   findDepths(this, 1);
   
-  if(maxDept > 2*minDepth){ rebalanceTree(); }
-};
+  if(maxDepth > 2*minDepth){ this.rebalanceTree(); }
+}
 
 bstMethods.contains = function( value ) {
   if(this.value === value) return true;

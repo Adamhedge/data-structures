@@ -56,6 +56,7 @@ describe('binarySearchTree', function() {
     binarySearchTree.insert(3);
     binarySearchTree.insert(2);
     binarySearchTree.insert(1);
-    expect(binarySearchTree.right.value).to.eql(5);
+    binarySearchTree.insert(6);
+    expect(binarySearchTree.right.value).to.eql(6);
   });
 });
