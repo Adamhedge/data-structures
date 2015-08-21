@@ -47,17 +47,34 @@ bstMethods.contains = function( value ) {
     }
   }
 }
-
+debugger;
 bstMethods.depthFirstLog = function() {
   var func = Array.prototype.slice.call(arguments)[0];
 
   var traverseDepthFirst = function(cb, parent) {
     cb(parent.value)
     if(parent.left !== null) traverseDepthFirst(cb, parent.left);
-    else if(parent.right !== null) traverseDepthFirst(cb, parent.right);
+    if(parent.right !== null) traverseDepthFirst(cb, parent.right);
   }
 
   traverseDepthFirst(func, this);
+}
+
+bstMethods.breadthFirstLog = function(cb) {
+  var queue = new Queue();
+  queue.enqueue(this);
+  var buffer = []
+
+  while(queue.size() > 0){
+    var myNode = queue.dequeue();
+    if(myNode.value !== undefined) { buffer.push(cb(myNode.value)); }
+    else { buffer.push(null); }
+
+    if(myNode.left !== null){ queue.enqueue(myNode.left); }
+    if(myNode.right !== null){ queue.enqueue(myNode.right) };
+  }
+
+  return buffer;
 }
 
 /*

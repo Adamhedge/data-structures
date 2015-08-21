@@ -71,12 +71,6 @@ treeMethods.traverse = function(cb) {
   var queue = new Queue();
   var buffer = [];
 
-  // if (this.value !== undefined){
-  //   queue.enqueue(this);
-  // } else {
-  //   queue.enqueue();
-  // }
-
   queue.enqueue(this);
 
   while(queue.size() > 0){
