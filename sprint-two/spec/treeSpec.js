@@ -58,4 +58,16 @@ describe('tree', function() {
     expect(cutTree.contains(7)).to.equal(false);
   });
 
+  it('should correctly calculate the callback values in breadth first order', function(){
+    var retVal = function(val){ return val };
+
+    tree.addChild(5);
+    tree.children[0].addChild(6);
+    tree.addChild(10);
+    tree.children[1].addChild(7);
+    tree.children[0].addChild(8);
+    var array = tree.traverse(retVal);
+    expect(_.isEqual(array, [null,5,10,6,8,7])).to.equal(true);
+  });
+
 });
