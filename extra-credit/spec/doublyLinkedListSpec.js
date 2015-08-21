@@ -1,4 +1,3 @@
-debugger;
 describe('doublyLinkedList', function() {
   var list;
 
