@@ -67,9 +67,6 @@ treeMethods.removeFromParent = function(){
   return this;
 };
 
-
-
-
 /*
  * Complexity: What is the time complexity of the above functions?
  Space: O(n)

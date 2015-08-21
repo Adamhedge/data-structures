@@ -2,6 +2,8 @@ var HashTable = function(){
   this._limit = 8;
   this._storage = LimitedArray(this._limit);
   this._resizingFactor = 2;
+  this._size = 0;
+
 
   this._insertAllToHashTable = function() {
     var oldStorage = this._storage;
@@ -21,14 +23,29 @@ var HashTable = function(){
       }
     });
   }
-};
 
-HashTable.prototype.insert = function(k, v){
-  var increaseHashTable = function(n) {
+  this._increaseHashTable = function(n) {
     this._limit = n*this._limit;
     this._insertAllToHashTable.call(this);
   }
 
+  this._decreaseHashTable = function(n) {
+    this._limit = this._limit/n;
+    this._insertAllToHashTable.call(this);
+  }
+
+  this._checkTableSize = function(op) {
+    // checks to see if the amount of keys used has exceeded 75% of the amount of keys available in the hash table
+    // and then checks to see if the amount of keys falls below 25% of the amount of keys available in the hash table
+    if(this._size >= ((this._limit) * .75).toFixed(1) && op === 'insert') {
+      this._increaseHashTable.call(this, this._resizingFactor);
+    } else if(this._size < ((this._limit) * .25).toFixed(1) && op === 'remove') {
+      this._decreaseHashTable.call(this, this._resizingFactor);
+    }
+  }
+};
+
+HashTable.prototype.insert = function(k, v){
   var insertAndHandleCollisions = function(i, v){
     // handles the case where an objects hash key hasn't beeen encountered yet
     if(this.get(i) === undefined) this.set(i, [[k,v]]);
@@ -45,18 +62,14 @@ HashTable.prototype.insert = function(k, v){
       if(collisions === undefined) collisions = [];
 
       collisions.push([k,v]);
-      this.set(i, collisions );
+      this.set(i, collisions);
     }
   }
 
   var i = getIndexBelowMaxForKey(k, this._limit);
   insertAndHandleCollisions.call(this._storage, i, v);
-
-
-  // checks to see if the amount of keys used has exceeded 75% of the amount of keys available in the hash table
-  if(this._storage.getKeysUsed() >= ((this._limit) * .75).toFixed(1)) {
-    increaseHashTable.call(this, this._resizingFactor);
-  }
+  this._keysUsed++;
+  this._checkTableSize.call(this, 'insert');
 };
 
 HashTable.prototype.retrieve = function(k){
@@ -75,22 +88,32 @@ HashTable.prototype.retrieve = function(k){
 };
 
 HashTable.prototype.remove = function(k){
-  var decreaseHashTable = function(n) {
-    this._limit = this._limit/n;
-    this._insertAllToHashTable.call(this);
+  if(this._size === 0) return;
+
+  var index = getIndexBelowMaxForKey(k, this._limit);
+  var collisions = this._storage.get(index);
+
+  if(collisions === null) return;
+
+  var answer = null;
+
+  for(var i = 0; i < collisions.length; i++) {
+    var kvPair = collisions[i];
+
+    if(kvPair[0] === k) {
+      answer = kvPair[1];
+      collisions.splice(i,1);
+      break;
+    }
   }
 
-  var i = getIndexBelowMaxForKey(k, this._limit);
+  this._storage.set(i, collisions);
 
-  this._storage.set(i, null);
-
-    // checks to see if the amount of keys falls below 25% of the amount of keys available in the hash table
-  if(this._storage.getKeysUsed() < ((this._limit) * .25).toFixed(1)) {
-    decreaseHashTable.call(this, this._resizingFactor);
-  }
+  this._keysUsed--;
+  this._checkTableSize.call(this, 'remove');
+  
+  return answer;
 };
-
-
 
 /*
  * Complexity: What is the time complexity of the above functions?
