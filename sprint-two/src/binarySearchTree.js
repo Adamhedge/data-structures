@@ -10,6 +10,31 @@ var BinarySearchTree = function(value){
 
 var bstMethods = {};
 
+bstMethods.rebalanceTree = function() {
+  var buffer = [];
+  var newTree;
+
+
+  var inOrderTraversal = function(node) {
+    if(node.left !== null) inOrderTraversal(node.left);
+    buffer.push(node.value);
+    if(node.right !== null) inOrderTraversal(node.right);
+  }
+
+  var binaryBalance = function(array) {
+    var middle = parseInt(array.length/2);
+    newTree.
+    if(array.length === 1) return;
+
+    binaryBalance(array)
+  }
+
+  inOrderTraversal(this);
+  binaryBalance();
+
+  return newTree;
+}
+
 bstMethods.insert = function( value ) {
   var pointer = this;
 
@@ -28,6 +53,28 @@ bstMethods.insert = function( value ) {
       pointer.right.insert(value);
     }
   }
+
+  var minDepth = Infinity;
+  var maxDepth = -1;
+
+
+  var findDepths = function(root, curDepth) {
+    if(root.left === null && root.right === null){
+      if(curDepth < minDepth) minDepth = curDepth;
+      if(curDepth > maxDepth) {
+        maxDepth = curDepth;
+      }
+    } else {
+      curDepth++;
+
+      if(root.right !== null){ findDepths(root.right, curDepth); }
+      if(root.left !== null){ findDepths(root.left, curDepth); }
+    }
+  }
+
+  findDepths(this, 1);
+  
+  if(maxDept > 2*minDepth){ rebalanceTree(); }
 };
 
 bstMethods.contains = function( value ) {
@@ -47,7 +94,7 @@ bstMethods.contains = function( value ) {
     }
   }
 }
-debugger;
+
 bstMethods.depthFirstLog = function() {
   var func = Array.prototype.slice.call(arguments)[0];
 
