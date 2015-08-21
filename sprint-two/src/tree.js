@@ -67,7 +67,35 @@ treeMethods.removeFromParent = function(){
   return this;
 };
 
+treeMethods.traverse = function(cb) {
+  var queue = new Queue();
+  var buffer = [];
 
+  // if (this.value !== undefined){
+  //   queue.enqueue(this);
+  // } else {
+  //   queue.enqueue();
+  // }
+
+  queue.enqueue(this);
+
+  while(queue.size() > 0){
+    var myNode = queue.dequeue();
+    if(myNode.value !== undefined){
+      buffer.push(cb(myNode.value));
+    } else {
+      buffer.push(null);
+    }
+
+    if(myNode !== null && myNode.children !== null){
+      for(var i = 0; i < myNode.children.length; i++){
+        queue.enqueue(myNode.children[i]);
+      }
+    }
+  }
+
+  return buffer;
+}
 
 
 /*

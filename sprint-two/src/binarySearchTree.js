@@ -63,8 +63,8 @@ bstMethods.depthFirstLog = function() {
 /*
  * Complexity: What is the time complexity of the above functions?
  Space: O(n)
- Insert: O(log n), Worst Case: O(n)
- Search: O(log n), Worst Case: O(n)
- Delete: O(log n), Worst Case: O(n)
+ Insert: O(log n) if balanced, Worst Case: O(n)
+ Search: O(log n) if balanced, Worst Case: O(n)
+ Delete: O(log n) if balanced, Worst Case: O(n)
  Depth First Log: O(n)
  */
