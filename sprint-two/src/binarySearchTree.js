@@ -34,9 +34,9 @@ bstMethods.rebalanceTree = function() {
     var middle = parseInt(array.length/2);
 
     if(newTree === undefined) {
-      newTree = BinarySearchTree( array[middle] );
+      newTree = BinarySearchTree(array[middle]);
     } else {
-      newTree.insert( array[middle] );
+      newTree.insert(array[middle]);
     }
 
     var leftArray = array.slice(0, middle);

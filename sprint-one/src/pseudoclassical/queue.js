@@ -8,7 +8,7 @@ var Queue = function() {
 Queue.prototype.enqueue = function(value){
   if(value === undefined) return;
 
-  this.storage[this.storage['size']] = value;
+  this.storage[this.storage.size] = value;
   this.storage.size += 1;
 }
 
