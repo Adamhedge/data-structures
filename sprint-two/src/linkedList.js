@@ -4,41 +4,42 @@ var LinkedList = function(){
   list.tail = null;
 
   list.addToTail = function(value){
-    if( list.head === null ) {
-      list.head = new Node(value);
-      list.tail = list.head;
-      return;
+    var currentTail = list.tail;
+    var element = {
+      value: value,
+      next:  null
+    };
+    if(list.tail !== null){
+      list.tail.next = element;  
     }
-
-    var pointer = list.head;
-
-    while( pointer.next !== null ) {
-      pointer = pointer.next;
+    else{
+      list.head = element;
     }
-
-    list.tail = (pointer.next = new Node(value));
-
-    // this.tail.next = new Node(value);
-    // this.tail = this.tail.next;
+    list.tail = element;
   };
 
   list.removeHead = function(){
-    if( list.head === null ) return;
-
-    var head = list.head;
-    list.head = list.head.next;
-    return head.value;
+    if(list.head == null){
+      return null;
+    }
+    else{
+      var returnValue = list.head.value;
+      list.head = list.head.next;
+      return returnValue;
+    }
   };
 
   list.contains = function(target){
-    var pointer = list.head;
-
-    while( pointer !== null ) {
-      if( pointer.value == target ) return true;
-
-      pointer = pointer.next;
+    var myElement = list.head;
+    if(myElement == null){
+      return false;
     }
-
+    else while(myElement !== null){
+      if(myElement.value === target){
+        return true;
+      }
+      else myElement = myElement.next;
+    }
     return false;
   };
 
@@ -56,8 +57,4 @@ var Node = function(value){
 
 /*
  * Complexity: What is the time complexity of the above functions?
- Space: O(n)
- AddToTail: 1st implementation- O(n), second implementation- O(1)
- RemoveHead: O(1)
- Contains: O(n)
  */
