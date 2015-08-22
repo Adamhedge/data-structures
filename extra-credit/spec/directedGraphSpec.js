@@ -24,7 +24,6 @@ describe('directedGraph', function() {
     graph.insertEdge(1,2);
     graph.insertEdge(1,3);
     graph.insertEdge(1,4);
-    console.log(graph.nodePointsToNodes(1));
     expect(_.isEqual(graph.nodePointsToNodes(1), [[2,1],[3,1],[4,1]])).to.equal(true);
     expect(_.isEqual(graph.nodePointsToNodes(1), [1])).to.equal(false);
   });
