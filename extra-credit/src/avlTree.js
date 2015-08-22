@@ -56,8 +56,9 @@ AVLTree.prototype.leftRotation = function(pointer, parent) {
 }
 
 AVLTree.prototype.rightRotation = function(pointer, parent) {
-  var tempRight = JSON.parse(JSON.stringify(parent));
-  tempRight.left = pointer.right;
+  var tempRight = new AVLTree(parent.value);
+  tempRight.right = parent.right;
+  tempRight.left = pointer.right;  
 
   parent.value = pointer.value;
   parent.left = pointer.left;
