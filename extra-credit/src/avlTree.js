@@ -7,8 +7,13 @@ var AVLTree = function() {
 
 }
 
-AVLTree.prototype.leftRotation = function(parent) {
+AVLTree.prototype.leftRotation = function(pointer, parent) {
+  var tempLeft = parent;
+  tempLeft.right = pointer.left;
 
+  parent.value = pointer.value;
+  parent.left = tempLeft;
+  parent.right = pointer.right;
 }
 
 AVLTree.prototype.rightRotation = function(pointer, parent) {
