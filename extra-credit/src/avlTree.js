@@ -1,9 +1,8 @@
-var AVLTree = function() {
+var AVLTree = function(value) {
   this.value = value;
   this.left = null;
   this.right = null;
   this.balanceFactor = [0,0];
-
 
 }
 
@@ -26,7 +25,7 @@ AVLTree.prototype.rightRotation = function(pointer, parent) {
 }
 
 AVLTree.prototype.insert = function(value) {
-  var insertRecursively() = function(pointer, parent) {
+  var insertRecursively = function(pointer, parent) {
     if(value < pointer.value) {
       if(pointer.left === null) {
         pointer.left = new AVLTree(value);
